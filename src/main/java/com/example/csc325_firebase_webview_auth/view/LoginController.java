@@ -8,13 +8,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class RegistrationFormController {
-
-    @FXML
-    private TextField firstNameField;
-
-    @FXML
-    private TextField lastNameField;
+public class LoginController {
 
     @FXML
     private TextField emailField;
@@ -23,24 +17,21 @@ public class RegistrationFormController {
     private PasswordField passwordField;
 
     @FXML
-    private PasswordField confirmPasswordField;
+    private Button loginButton;
 
     @FXML
-    private Button registerButton;
+    private Hyperlink registerLink;
 
     @FXML
-    private Hyperlink loginLink;
-
-    @FXML
-    private void handleRegister() {
-        // Handle registration logic here
-        System.out.println("Register button clicked");
+    private void handleLogin() {
+        // Handle login logic here
+        System.out.println("Login button clicked");
     }
 
     @FXML
-    private void handleLoginLink() {
+    private void handleRegisterLink() {
         try {
-            App.setRoot("/files/login-form.fxml");
+            App.setRoot("/files/registration-form.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }

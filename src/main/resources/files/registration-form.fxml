@@ -20,5 +20,6 @@
         <Label text="Confirm Password:"/>
         <PasswordField fx:id="confirmPasswordField" promptText="Confirm your password"/>
         <Button fx:id="registerButton" text="Register" onAction="#handleRegister"/>
+        <Hyperlink fx:id="loginLink" text="Already have an account? Login here" onAction="#handleLoginLink"/>
     </VBox>
 </AnchorPane>
