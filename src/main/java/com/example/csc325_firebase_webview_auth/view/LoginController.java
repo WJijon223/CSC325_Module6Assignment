@@ -52,7 +52,7 @@ public class LoginController {
                     System.out.println("Login successful.");
                     // Navigate to the main application view, e.g., AccessFBView
                     try {
-                        App.setRoot("/files/AccessFBView.fxml");
+                        App.setRoot("/files/WebContainer.fxml");
                     } catch (IOException e) {
                         System.out.println("Error navigating to main view: " + e.getMessage());
                         e.printStackTrace();

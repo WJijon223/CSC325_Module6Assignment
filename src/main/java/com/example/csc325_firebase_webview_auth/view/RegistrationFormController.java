@@ -88,6 +88,13 @@ public class RegistrationFormController {
             result.get(); // Wait for the operation to complete
             System.out.println("User data inserted into Firestore successfully.");
 
+            // Navigate to the web container after successful registration
+            try {
+                App.setRoot("/files/WebContainer.fxml");
+            } catch (IOException e) {
+                System.out.println("Error navigating to web container: " + e.getMessage());
+                e.printStackTrace();
+            }
         } catch (FirebaseAuthException e) {
             System.out.println("Registration failed: " + e.getMessage());
             // Firebase Auth will throw an exception if the email is already in use
