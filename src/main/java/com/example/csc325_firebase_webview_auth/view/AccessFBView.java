@@ -17,13 +17,19 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 public class AccessFBView {
 
@@ -47,12 +53,49 @@ public class AccessFBView {
         return listOfUsers;
     }
 
-    void initialize() {
+    @FXML
+    private void initialize() {
 
         AccessDataViewModel accessDataViewModel = new AccessDataViewModel();
         nameField.textProperty().bindBidirectional(accessDataViewModel.userNameProperty());
         majorField.textProperty().bindBidirectional(accessDataViewModel.userMajorProperty());
         writeButton.disableProperty().bind(accessDataViewModel.isWritePossibleProperty().not());
+
+        Platform.runLater(this::applyThemeHooks);
+    }
+
+    private void applyThemeHooks() {
+        if (nameField.getScene() == null) {
+            return;
+        }
+
+        String stylesheet = App.class.getResource("/files/style.css").toExternalForm();
+        if (!nameField.getScene().getStylesheets().contains(stylesheet)) {
+            nameField.getScene().getStylesheets().add(stylesheet);
+        }
+
+        Parent root = nameField.getScene().getRoot();
+        root.setId("rootPane");
+
+        if (root instanceof Pane rootPane && !rootPane.getChildren().isEmpty() && rootPane.getChildren().get(0) instanceof MenuBar menuBar) {
+            menuBar.setId("topMenu");
+        }
+
+        Parent rightPanel = nameField.getParent();
+        if (rightPanel != null) {
+            rightPanel.setId("formPanel");
+        }
+
+        Parent dataPanel = outputField.getParent();
+        if (dataPanel != null) {
+            dataPanel.setId("dataPanel");
+        }
+
+        Parent rowParent = rightPanel != null ? rightPanel.getParent() : null;
+        if (rowParent instanceof HBox row && !row.getChildren().isEmpty()) {
+            Node leftPanel = row.getChildren().get(0);
+            leftPanel.setId("leftPanel");
+        }
     }
 
     @FXML
